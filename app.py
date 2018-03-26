@@ -1,8 +1,27 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import hashlib
 import math
 
 app = Flask(__name__)
+
+tasks = [ # add your tasks here
+    {
+        'id':'md5',
+        'title': "MD5",
+        'description': 'Return md5 hash.',
+        'done':False
+    },
+    {
+        'id':'factorial',
+        'title': 'Factorial',
+        'description': 'Return n factorial.',
+        'done':False
+    }
+]
+
+@app.route('/todo/api/v1.0/tasks', methods=['GET'])
+def get_tasks():
+    return jsonify({'tasks': tasks})
 
 @app.route('/')
 def index():

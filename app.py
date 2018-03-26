@@ -9,13 +9,13 @@ tasks = [ # add your tasks here
         'id':'md5',
         'title': "MD5",
         'description': 'Returns an md5 hash of the passed string.',
-        'done':False
+        'done':True
     },
     {
         'id':'factorial',
         'title': 'Factorial',
         'description': 'Returns n factorial.',
-        'done':False
+        'done':True
     }
 ]
 

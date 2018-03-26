@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, abort, make_response
 import hashlib
 import math
 
@@ -19,22 +19,29 @@ tasks = [ # add your tasks here
     }
 ]
 
-@app.route('/todo/api/v1.0/tasks', methods=['GET'])
+@app.errorhandler(404) # handles 404 errors
+def notFound(error):
+    return make_response(jsonify({'404 error': 'Page not found.'}), 404)
+
+@app.route('/tasks', methods=['GET']) # returns list of tasks
 def get_tasks():
     return jsonify({'tasks': tasks})
 
-@app.route('/')
-def index():
-    return render_template('index.html', output="Try /md5/message to see its md5 hash.")
+@app.route('/<str:taskID>', methods=['GET']) # checks to see if task exists before calling it
+def getTask(taskID):
+    task = [task for task in tasks if task['id'] == taskID]
+    if len(task) == 0:
+        abort(404)
+    return jsonify({'task':task[0]})
 
-@app.route('/md5/<string>')
-def getMD5(string): # TODO: needs to return correct http status codes
+@app.route('/md5/<str:string>')
+def getMD5(string):
     md5Hash = hashlib.sha224(str(string).encode('utf-8')).hexdigest()
     return render_template('index.html', output=md5Hash)
 
-@app.route('/factorial/<string>')  # TODO: needs to return correct http status codes
-def getFactorial(string):
-    factorial = math.factorial(int(string))
+@app.route('/factorial/<int:x>')
+def getFactorial(x):
+    factorial = math.factorial(int(x))
     return render_template('index.html', output=factorial)
 
 if __name__ == "__main__":

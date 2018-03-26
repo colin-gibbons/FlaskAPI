@@ -34,12 +34,12 @@ def getTask(taskID): # returns info on a specific tasks
         abort(404)
     return jsonify({'task':task[0]})
 
-@app.route('/md5/<string:string>')
+@app.route('/md5/<string:string>', methods=['GET'])
 def getMD5(string):
     md5Hash = hashlib.sha224(str(string).encode('utf-8')).hexdigest()
     return render_template('index.html', output=md5Hash)
 
-@app.route('/factorial/<int:x>')
+@app.route('/factorial/<int:x>', methods=['GET'])
 def getFactorial(x):
     factorial = math.factorial(int(x))
     return render_template('index.html', output=factorial)

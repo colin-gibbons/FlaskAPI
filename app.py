@@ -23,13 +23,13 @@ tasks = [ # list of available API commands
     {
         'id':'fibonacci',
         'title': 'Fibonacci',
-        'description': 'Returns n factorial.',
+        'description': 'Returns fibonacci sequence up to n.',
         'done':False
     },
     {
         'id':'is-prime',
         'title': 'Is Prime',
-        'description': 'Returns True if x is prime, otherwise returns False.',
+        'description': 'Returns True if n is prime, otherwise returns False.',
         'done':False
     },
     {

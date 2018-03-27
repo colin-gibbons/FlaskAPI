@@ -51,8 +51,10 @@ def get_tasks():
 @app.route('/<string:taskID>', methods=['GET'])  # returns info on a specific command
 def getTask(taskID):
     task = [task for task in tasks if task['id'] == taskID]
+    
     if len(task) == 0:
         abort(404)
+    
     return jsonify({'task':task[0]})
 
 @app.route('/md5/<string:string>', methods=['GET']) # MD5
@@ -72,7 +74,7 @@ def slackPost(string):
     json_post = json.dumps(post)
     req = request.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
     request.urlopen(req)
-    return jsonify({'input':string, 'output':("posted " + string + " to group 2 slack channel.")})
+    return jsonify({'input':string, 'output':("Posted " + string + " to group 2 slack channel.")})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0") 

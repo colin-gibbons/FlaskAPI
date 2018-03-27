@@ -71,7 +71,7 @@ def slackPost(string):
 
     json_post = json.dumps(post)
     req = request.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
-    resp = request.urlopen(req)
+    request.urlopen(req)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0") 

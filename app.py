@@ -1,6 +1,8 @@
 from flask import Flask, render_template, jsonify, abort, make_response
 import hashlib
 import math
+from urllib import request, parse
+from slackclient import SlackClient
 
 app = Flask(__name__)
 
@@ -44,8 +46,15 @@ def getFactorial(x):
     factorial = math.factorial(int(x))
     return render_template('index.html', output=factorial)
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+@app.route('/slack-alert/<string:string>', methods=['GET'])
+def slackPost(string):
+    post = {"text": "{0}".format(string)}
 
+    json_post = json.dumps(post)
+    req = request.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
+    resp = request.urlopen(req)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0") 
 
 

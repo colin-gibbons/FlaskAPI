@@ -72,6 +72,7 @@ def slackPost(string):
     json_post = json.dumps(post)
     req = request.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
     request.urlopen(req)
+    return jsonify({'input':string, 'output':str("posted " + string + " to group 2 slack channel.")})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0") 

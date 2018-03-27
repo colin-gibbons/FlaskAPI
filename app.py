@@ -1,12 +1,13 @@
 from flask import Flask, render_template, jsonify, abort, make_response
 import hashlib
 import math
+import json
 from urllib import request, parse
 from slackclient import SlackClient
 
 app = Flask(__name__)
 
-tasks = [ # add your tasks here
+tasks = [ # list of available API commands
     {
         'id':'md5',
         'title': "MD5",
@@ -18,6 +19,24 @@ tasks = [ # add your tasks here
         'title': 'Factorial',
         'description': 'Returns n factorial.',
         'done':True
+    },
+    {
+        'id':'fibonacci',
+        'title': 'Fibonacci',
+        'description': 'Returns n factorial.',
+        'done':False
+    },
+    {
+        'id':'is-prime',
+        'title': 'Is Prime',
+        'description': 'Returns True if x is prime, otherwise returns False.',
+        'done':False
+    },
+    {
+        'id':'slack-alert',
+        'title': 'Slack Alert',
+        'description': 'Prints message to the Group 2 slack channel.',
+        'done':True
     }
 ]
 
@@ -25,28 +44,28 @@ tasks = [ # add your tasks here
 def notFound(error):
     return make_response(jsonify({'error': '404: Page not found.'}), 404)
 
-@app.route('/tasks', methods=['GET'])
-def get_tasks():  # returns list of all tasks
+@app.route('/tasks', methods=['GET']) # displays list of available API commands
+def get_tasks():
     return jsonify({'tasks': tasks})
 
-@app.route('/<string:taskID>', methods=['GET'])
-def getTask(taskID): # returns info on a specific tasks
+@app.route('/<string:taskID>', methods=['GET'])  # returns info on a specific command
+def getTask(taskID):
     task = [task for task in tasks if task['id'] == taskID]
     if len(task) == 0:
         abort(404)
     return jsonify({'task':task[0]})
 
-@app.route('/md5/<string:string>', methods=['GET'])
+@app.route('/md5/<string:string>', methods=['GET']) # MD5 Function
 def getMD5(string):
     md5Hash = hashlib.sha224(str(string).encode('utf-8')).hexdigest()
-    return render_template('index.html', output=md5Hash)
+    return jsonify({'input':string, 'output':md5Hash})
 
-@app.route('/factorial/<int:x>', methods=['GET'])
+@app.route('/factorial/<int:x>', methods=['GET']) # Factorial Functipon
 def getFactorial(x):
     factorial = math.factorial(int(x))
-    return render_template('index.html', output=factorial)
+    return jsonify({'input':x, 'output':factorial})
 
-@app.route('/slack-alert/<string:string>', methods=['GET'])
+@app.route('/slack-alert/<string:string>', methods=['GET']) # Slack-Alert Function
 def slackPost(string):
     post = {"text": "{0}".format(string)}
 

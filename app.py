@@ -55,17 +55,17 @@ def getTask(taskID):
         abort(404)
     return jsonify({'task':task[0]})
 
-@app.route('/md5/<string:string>', methods=['GET']) # MD5 Function
+@app.route('/md5/<string:string>', methods=['GET']) # MD5
 def getMD5(string):
     md5Hash = hashlib.sha224(str(string).encode('utf-8')).hexdigest()
     return jsonify({'input':string, 'output':md5Hash})
 
-@app.route('/factorial/<int:x>', methods=['GET']) # Factorial Functipon
+@app.route('/factorial/<int:x>', methods=['GET']) # Factorials
 def getFactorial(x):
     factorial = math.factorial(int(x))
     return jsonify({'input':x, 'output':factorial})
 
-@app.route('/slack-alert/<string:string>', methods=['GET']) # Slack-Alert Function
+@app.route('/slack-alert/<string:string>', methods=['GET']) # Slack-Alert
 def slackPost(string):
     post = {"text": "{0}".format(string)}
 

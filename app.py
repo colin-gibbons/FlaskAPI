@@ -61,6 +61,14 @@ def getTask(taskID):
 def getMD5(string):
     md5Hash = hashlib.sha224(str(string).encode('utf-8')).hexdigest()
     return jsonify({'input':string, 'output':md5Hash})
+@app.route('/prime/<int:x>', methods=['GET']) # Prime
+def getprime(x):
+    for number in range(2,int(x**0.5)+1):
+            if x%number==0:
+                a = False
+                return jsonify({'input':x, 'output':a})
+    a = True
+    return jsonify({'input':x, 'output':a})
 
 @app.route('/factorial/<int:x>', methods=['GET']) # Factorials
 def getFactorial(x):

@@ -30,7 +30,7 @@ tasks = [ # list of available API commands
         'id':'is-prime',
         'title': 'Is Prime',
         'description': 'Returns True if n is prime, otherwise returns False.',
-        'done':False
+        'done':True
     },
     {
         'id':'slack-alert',
@@ -62,7 +62,7 @@ def getMD5(string):
     md5Hash = hashlib.sha224(str(string).encode('utf-8')).hexdigest()
     return jsonify({'input':string, 'output':md5Hash})
 
-@app.route('/prime/<int:x>', methods=['GET']) # Prime
+@app.route('/is-prime/<int:x>', methods=['GET']) # Prime
 def getprime(x):
     for number in range(2,int(x**0.5)+1):
             if x%number==0:
@@ -87,10 +87,11 @@ def slackPost(string):
 
 @app.route('/fibonacci/<int:x>', methods=['GET']) # Fibonacci
 def fibonacci(x):
-     a, b = 0, 1
-     while a < x:
-         fibonacci = a
-         a, b = b, a+b   
+    a, b = 0, 1
+    while a < x:
+        fibonacci = a
+        a, b = b, a+b
+
     return jsonify({'input':x, 'output':fibonacci})
 
 if __name__ == "__main__":

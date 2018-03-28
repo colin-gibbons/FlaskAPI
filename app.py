@@ -76,6 +76,15 @@ def slackPost(string):
     request.urlopen(req)
     return jsonify({'input':string, 'output':("Posted " + string + " to group 2 slack channel.")})
 
+@app.route('/fibonacci/<int:x>', methods=['GET']) # Fibonacci
+def fibonacci(x):
+         a, b = 0, 1
+     while a < x:
+         print(a, end=' ')
+         a, b = b, a+b
+     print()
+    return jsonify({'input':x, 'output':fibonacci})
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0") 
 

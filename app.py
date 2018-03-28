@@ -95,7 +95,7 @@ def fibonacci(x):
                a,b = b, a+b
                fiboonacci.append(b)
           fibonacci = fibonacci[:-1]
-     else:
+  else:
          b = "Please choose a number greater than 0"
          fibonacci = []
          fibonacci.append(b)

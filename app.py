@@ -87,11 +87,18 @@ def slackPost(string):
 
 @app.route('/fibonacci/<int:x>', methods=['GET']) # Fibonacci
 def fibonacci(x):
-    a, b = 0, 1
-    while a < x:
-        fibonacci = a
-        a, b = b, a+b
-
+  if x >= 0:
+          a = 0
+          b = 1
+          fibonacci = [a,b]
+          while b < x:
+               a,b = b, a+b
+               fiboonacci.append(b)
+          fibonacci = fibonacci[:-1]
+     else:
+         b = "Please choose a number greater than 0"
+         fibonacci = []
+         fibonacci.append(b)
     return jsonify({'input':x, 'output':fibonacci})
 
 if __name__ == "__main__":

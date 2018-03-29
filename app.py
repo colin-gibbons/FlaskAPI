@@ -64,6 +64,9 @@ def getMD5(string):
 
 @app.route('/is-prime/<int:x>', methods=['GET']) # Prime
 def getprime(x):
+    if x == 1:
+        return False
+
     for number in range(2,int(x**0.5)+1):
             if x%number==0:
                 a = False

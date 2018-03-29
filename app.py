@@ -59,7 +59,7 @@ def getTask(taskID):
 
 @app.route('/md5/<string:string>', methods=['GET']) # MD5
 def getMD5(string):
-    md5Hash = hashlib.sha224(str(string).encode('utf-8')).hexdigest()
+    md5Hash = hashlib.md5(str(string).encode('utf-8')).hexdigest()
     return jsonify({'input':string, 'output':md5Hash})
 
 @app.route('/is-prime/<int:x>', methods=['GET']) # Prime

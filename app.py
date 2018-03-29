@@ -103,6 +103,17 @@ def fibonacci(x):
         fibArray.append(b)
     return jsonify({'input':x, 'output':fibArray})
 
+# Added 400 Error for bad input
+@app.route('/fibonacci/<string:inStr>', methods=['GET'])
+def fibErr(inStr):
+    return make_response(jsonify({'error': '400: Bad Request - Invalid Input'}), 400)
+@app.route('/factorial/<string:inStr>', methods=['GET'])
+def factErr(inStr):
+    return make_response(jsonify({'error': '400: Bad Request - Invalid Input'}), 400)
+@app.route('/is-prime/<string:inStr>', methods=['GET'])
+def primeErr(inStr):
+    return make_response(jsonify({'error': '400: Bad Request - Invalid Input'}), 400)
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0") 
 

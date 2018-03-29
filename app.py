@@ -83,7 +83,7 @@ def slackPost(string):
     json_post = json.dumps(post)
     req = request.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
     request.urlopen(req)
-    return jsonify({'input':string, 'output':("Posted " + string + " to group 2 slack channel.")})
+    return jsonify({'input':string, 'output':True})
 
 @app.route('/fibonacci/<int:x>', methods=['GET']) # Fibonacci
 def fibonacci(x):
@@ -92,7 +92,7 @@ def fibonacci(x):
         b = 1
         fibArray = [a,b]
         
-        while b < x:
+        while b <= x:
             a,b = b, a+b
             fibArray.append(b)
         

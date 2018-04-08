@@ -4,6 +4,7 @@ from slackclient import SlackClient
 import hashlib
 import math
 import json
+import redis
 
 app = Flask(__name__)
 
@@ -87,6 +88,18 @@ def slackPost(string):
     req = request.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
     request.urlopen(req)
     return jsonify({'input':string, 'output':True})
+
+@app.route('/kv-retrieve/<string:string>', methods=['GET']) # kv retrieve
+def retrieve(string):
+    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+    out = r.get(string)
+    return jsonify({'input':string, 'output':out})
+
+@app.route('/kv-record/<string:string>', methods=['GET']) # kv record
+def record(string):
+    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+    r.set(string, string)
+    return jsonify({'input':string, 'output':string})
 
 @app.route('/fibonacci/<int:x>', methods=['GET']) # Fibonacci
 def fibonacci(x):

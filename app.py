@@ -1,5 +1,6 @@
-from flask import Flask, render_template, jsonify, abort, make_response
-from urllib import request, parse
+from flask import Flask, render_template, jsonify, abort, make_response, request
+from urllib import request as request2
+from urllib import parse
 from slackclient import SlackClient
 import hashlib
 import math
@@ -7,6 +8,8 @@ import json
 import redis
 
 app = Flask(__name__)
+redis_ip = '35.185.41.112'
+redis_port = 6379
 
 tasks = [ # list of available API commands
     {
@@ -85,21 +88,46 @@ def slackPost(string):
     post = {"text": "{0}".format(string)}
 
     json_post = json.dumps(post)
-    req = request.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
-    request.urlopen(req)
+    req = request2.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
+    request2.urlopen(req)
     return jsonify({'input':string, 'output':True})
 
 @app.route('/kv-retrieve/<string:string>', methods=['GET']) # kv retrieve
 def retrieve(string):
-    r = redis.StrictRedis(host='redis', port=6379, db=0)
+    r = redis.StrictRedis(host=redis_ip, port=redis_port, db=0)
     out = r.get(string)
-    return jsonify({'input':string, 'output':out})
+    error = 'none'
 
-@app.route('/kv-record/<string:string>', methods=['GET']) # kv record
-def record(string):
-    r = redis.StrictRedis(host='redis', port=6379, db=0)
-    r.set(string, string)
-    return jsonify({'input':string, 'output':string})
+    if type(out) == bytes:
+        out = out.decode("utf-8")
+    else:
+        out = False
+        error = 'Key does not exist.'
+
+    return jsonify({'input':string, 'output':out, 'error': error})
+
+@app.route('/kv-record', methods=['POST', 'PUT']) # kv record
+def record():
+    data = request.form
+    r = redis.StrictRedis(host=redis_ip, port=redis_port, db=0)
+    error = 'none'
+    if request.method == 'POST':
+        for key, value in data.items():
+            if not r.exists(key):
+                r.set(key, value)
+                print("Adding new k/v pair: (" + key + ", " + value +")")
+            else:
+                error = 'Unable to add pair: Key already exists.'
+                return jsonify({'input':data, 'output':False, 'error': error})
+    elif request.method == 'PUT':
+        for key, value in data.items():
+            if r.exists(key):
+                r.set(key, value)
+                print("Updating k/v pair: (" + key + ", " + value +")")
+            else:
+                error = 'Unable to update pair: Key does not exist.'
+                return jsonify({'input':data, 'output':False, 'error': error})
+    return jsonify({'input':data, 'output':True, 'error': error})
 
 @app.route('/fibonacci/<int:x>', methods=['GET']) # Fibonacci
 def fibonacci(x):

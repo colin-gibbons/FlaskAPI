@@ -91,13 +91,13 @@ def slackPost(string):
 
 @app.route('/kv-retrieve/<string:string>', methods=['GET']) # kv retrieve
 def retrieve(string):
-    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+    r = redis.StrictRedis(host='redis', port=6379, db=0)
     out = r.get(string)
     return jsonify({'input':string, 'output':out})
 
 @app.route('/kv-record/<string:string>', methods=['GET']) # kv record
 def record(string):
-    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+    r = redis.StrictRedis(host='redis', port=6379, db=0)
     r.set(string, string)
     return jsonify({'input':string, 'output':string})
 

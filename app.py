@@ -8,7 +8,7 @@ import json
 import redis
 
 app = Flask(__name__)
-redis_ip = '35.185.41.112'
+redis_ip = 'redis'
 redis_port = 6379
 
 tasks = [ # list of available API commands
@@ -40,6 +40,18 @@ tasks = [ # list of available API commands
         'id':'slack-alert',
         'title': 'Slack Alert',
         'description': 'Prints message to the Group 2 slack channel.',
+        'done':True
+    },
+    {
+        'id':'kv-record',
+        'title': 'kv-record',
+        'description': 'Records posted k/v pair to REDIS database.',
+        'done':True
+    },
+    {
+        'id':'kv-retrieve',
+        'title': 'kv-retrieve',
+        'description': 'Retrieves key value from REDIS database. ',
         'done':True
     }
 ]

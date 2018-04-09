@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, abort, make_response, request
-from urllib import request as request2
+from urllib import request as urlRequest
 from urllib import parse
 from slackclient import SlackClient
 import hashlib
@@ -100,8 +100,8 @@ def slackPost(string):
     post = {"text": "{0}".format(string)}
 
     json_post = json.dumps(post)
-    req = request2.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
-    request2.urlopen(req)
+    req = urlRequest.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
+    urlRequest.urlopen(req)
     return jsonify({'input':string, 'output':True})
 
 @app.route('/kv-retrieve/<string:string>', methods=['GET']) # kv retrieve

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, abort, make_response, request
-from urllib import request as request2
+from urllib import request as urlRequest
 from urllib import parse
 from slackclient import SlackClient
 import hashlib
@@ -8,7 +8,7 @@ import json
 import redis
 
 app = Flask(__name__)
-redis_ip = '35.185.41.112'
+redis_ip = 'redis'
 redis_port = 6379
 
 tasks = [ # list of available API commands
@@ -40,6 +40,18 @@ tasks = [ # list of available API commands
         'id':'slack-alert',
         'title': 'Slack Alert',
         'description': 'Prints message to the Group 2 slack channel.',
+        'done':True
+    },
+    {
+        'id':'kv-record',
+        'title': 'kv-record',
+        'description': 'Records posted k/v pair to REDIS database.',
+        'done':True
+    },
+    {
+        'id':'kv-retrieve',
+        'title': 'kv-retrieve',
+        'description': 'Retrieves key value from REDIS database. ',
         'done':True
     }
 ]
@@ -88,8 +100,8 @@ def slackPost(string):
     post = {"text": "{0}".format(string)}
 
     json_post = json.dumps(post)
-    req = request2.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
-    request2.urlopen(req)
+    req = urlRequest.Request("https://hooks.slack.com/services/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", data = json_post.encode('ascii'), headers = {'Content-Type': 'application/json'})
+    urlRequest.urlopen(req)
     return jsonify({'input':string, 'output':True})
 
 @app.route('/kv-retrieve/<string:string>', methods=['GET']) # kv retrieve

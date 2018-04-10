@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import click
 import requests
 
@@ -15,4 +17,7 @@ print (r.content)
 @click.argument('md5_test')
 def touch(md5_test):
     click.echo(md5_test)
+
+if __name__ == '__main__':
+    touch()
 

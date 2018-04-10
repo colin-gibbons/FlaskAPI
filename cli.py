@@ -1,23 +1,40 @@
-#!/usr/bin/python
-
+###!/usr/bin/python
 import click
 import requests
 
-# url = 'http://35.185.41.112/kv-record'
+# url = 'http://35.185.41.112/'
 # payload = {'professor': 'adam'}
-# r = requests.post(url, data=payload)
+#r = requests.post(url, data=payload)
 
-r = requests.get("http://localhost:5000/is-prime/7")
+# r = requests.get("http://localhost:5000/is-prime/7")
 
-print (r.status_code)
-print (r.headers)
-print (r.content)
+# print (r.status_code)
+# print (r.headers)
+# print (r.content)
+
 
 @click.command()
-@click.argument('md5_test')
-def touch(md5_test):
-    click.echo(md5_test)
+
+@click.argument('src', nargs=1)
+@click.argument('dst', nargs=1)
+
+def tcmg476(src, dst):
+    url = 'http://35.185.41.112/'
+    url=url+src+'/'
+    url=url+dst
+    
+    print(url)
+    r = requests.get(url)
+    print(r.content)
+
 
 if __name__ == '__main__':
-    touch()
 
+
+    url = 'http://35.185.41.112/'
+    tcmg476()
+
+
+    
+
+    

@@ -1,13 +1,18 @@
 import click
+import requests
+
+# url = 'http://35.185.41.112/kv-record'
+# payload = {'professor': 'adam'}
+# r = requests.post(url, data=payload)
+
+r = requests.get("http://localhost:5000/is-prime/7")
+
+print (r.status_code)
+print (r.headers)
+print (r.content)
 
 @click.command()
-@click.option('--count', default=1, help='Number of greetings.')
-@click.option('--name', prompt='Your name',
-              help='The person to greet.')
-def hello(count, name):
-    """Simple program that greets NAME for a total of COUNT times."""
-    for x in range(count):
-        click.echo('Hello %s!' % name)
+@click.argument('md5_test')
+def touch(md5_test):
+    click.echo(md5_test)
 
-if __name__ == '__main__':
-    hello()

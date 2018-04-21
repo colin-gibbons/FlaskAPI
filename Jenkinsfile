@@ -4,11 +4,11 @@ pipeline {
         stage('Build') { 
             agent {
                 docker {
-                    image 'python:3-alpine' 
+                    image 'docker' 
                 }
             }
             steps {
-                sh 'python -m py_compile app.py' 
+                sh 'docker stack deploy -c docker-compose.yml flask' 
             }
         }
     }

@@ -8,7 +8,7 @@ import json
 import redis
 
 app = Flask(__name__)
-redis_ip = '35.231.14.95'
+redis_ip = 'redis'
 redis_port = 6379
 
 tasks = [ # list of available API commands

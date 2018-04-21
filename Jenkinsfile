@@ -1,12 +1,11 @@
 pipeline {
-    agent none 
+    agent {
+        docker {
+            image 'docker' 
+        }
+    }
     stages {
         stage('Build') { 
-            agent {
-                docker {
-                    image 'docker' 
-                }
-            }
             steps {
                 sh 'docker stack deploy -c docker-compose.yml flask' 
             }

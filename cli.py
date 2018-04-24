@@ -21,8 +21,8 @@ import requests
 def tcmg476(src, dst):
     
     blah = ''
-    #url = 'http://35.185.41.112/'
-    url = 'http://localhost:5000/'
+    url = 'http://35.192.69.243/'
+    #url = 'http://localhost:5000/'
     normal_url=url+src+'/'
 
     uknown_value="That key has not been inputted"
@@ -38,7 +38,7 @@ def tcmg476(src, dst):
         r = requests.post(kv_url, data=payload)
         requests.post(kv_url, data=payload)
         print(payload)
-        print(r.content)
+        print(r.content[50])
         
         
     # elif src == 'kv-retrieve':
@@ -76,8 +76,8 @@ def tcmg476(src, dst):
 if __name__ == '__main__':
     
 
-    #url = 'http://35.185.41.112/'
-    url = 'http://localhost:5000/'
+    url = 'http://35.192.69.243/'
+    #url = 'http://localhost:5000/'
     tcmg476()
 
 

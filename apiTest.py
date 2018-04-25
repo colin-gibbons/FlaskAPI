@@ -1,5 +1,6 @@
 import unittest
 import requests
+import hashlib
 
 url = 'http://localhost'
 
@@ -13,3 +14,7 @@ class TestAPI(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+import request
+import hashlib
+import os

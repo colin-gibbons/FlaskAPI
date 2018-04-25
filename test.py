@@ -30,7 +30,8 @@ FAILED = 0
 PASSED = 0
 for uri, test_result in tests.items():
     print(" * ", uri, "... ", end=" ")
-    resp = requests.get('http://www.aslancole.com'+uri)
+    #resp = requests.get('http://www.aslancole.com'+uri)
+    resp = requests.get('http://localhost:5000'+uri)
     if resp.status_code == test_result[0]:
         if test_result[1] == None or resp.json()['output'] == test_result[1]:
             print("Congrats it Passed")

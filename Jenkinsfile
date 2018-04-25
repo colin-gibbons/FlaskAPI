@@ -8,7 +8,7 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'docker build -t colingibbons/flask .'
-                sh 'sudo docker run -d -p 80:5000 --name flask colingibbons/flask'
+                sh 'docker run -d -p 80:5000 --name flask colingibbons/flask'
             }
         }
 

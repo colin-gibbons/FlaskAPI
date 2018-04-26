@@ -39,11 +39,11 @@ PASSED = 0
 for uri, test_result in tests.items():
     print(" * ", uri, "... ", end=" ")
     #resp = requests.get('http://www.aslancole.com'+uri)
-    resp = requests.get('http://localhost:5000'+uri)
+    resp = requests.get('http://35.224.161.38'+uri)
     if uri == '/kv-record/Immalittle teepot':
         print(" * ", uri, "... ", end=" ")
         payload = {'Immalittle': 'teepot'}
-        kv_url = ('http://35.202.79.180/kv-record')
+        kv_url = ('http://35.224.161.38/kv-record')
         r = requests.post(kv_url, data=payload)
         requests.post(kv_url, data=payload)
 

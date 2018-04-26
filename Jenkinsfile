@@ -10,7 +10,7 @@ pipeline {
                 sh 'docker stop flask'
                 sh 'docker rmi colingibbons/flask'
                 sh 'docker build -t colingibbons/flask .'
-                sh 'sudo docker stack deploy -c docker-compose.yml flask'
+                sh 'docker stack deploy -c docker-compose.yml flask'
             }
         }
         stage('Test'){

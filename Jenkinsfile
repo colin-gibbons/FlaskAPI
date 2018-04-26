@@ -28,6 +28,7 @@ pipeline {
         }
         stage('Deploy'){
             steps{
+                sh 'docker login -u colingibbons -p TestP4$$?'
                 sh 'docker push colingibbons/flask'
             }
         }

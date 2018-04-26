@@ -11,6 +11,7 @@ print ("Testing API for expected results...\n")
 
    
 tests = {
+    '/echo/echo':                      (200,'echo echo echo'),
     '/kv-record/Immalittle teepot':    (200,False),
     '/kv-retrieve/Immalittle':            (200, None),
     '/md5/test':                    (200, HASH_1),

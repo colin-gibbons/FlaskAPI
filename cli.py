@@ -1,7 +1,7 @@
-#!/usr/bin/python
+##!/usr/bin/python
 import click
 import requests
-
+import json
 # url = 'http://35.185.41.112/'
 # payload = {'professor': 'adam'}
 #r = requests.post(url, data=payload)
@@ -21,8 +21,8 @@ import requests
 def tcmg476(src, dst):
     
     blah = ''
-    #url = 'http://35.192.69.243/'
-    url = 'http://localhost:5000/'
+    url = 'http://35.202.79.180/'
+    #url = 'http://localhost:5000/'
     normal_url=url+src+'/'
 
     uknown_value="That key has not been inputted"
@@ -33,12 +33,14 @@ def tcmg476(src, dst):
         #print(dst)
         for i in dst:
             ls.append(str(i))
-        print(kv_url)
+        #print(kv_url)
         payload ={ls[0]: ls[1]}
         r = requests.post(kv_url, data=payload)
         requests.post(kv_url, data=payload)
-        print(payload)
-        print(r.content[50])
+        print(r.content)
+        print(r.status_code)
+        #print(payload)
+
         
         
     # elif src == 'kv-retrieve':
@@ -76,8 +78,8 @@ def tcmg476(src, dst):
 if __name__ == '__main__':
     
 
-    #url = 'http://35.192.69.243/'
-    url = 'http://localhost:5000/'
+    url = 'http://35.202.79.180/'
+    #url = 'http://localhost:5000/'
     tcmg476()
 
 

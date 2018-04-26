@@ -8,6 +8,7 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'docker stop flask'
+                sh 'docker swarm leave -f'
                 sh 'docker rmi colingibbons/flask'
                 sh 'docker build -t colingibbons/flask .'
                 sh 'docker swarm init'
@@ -16,6 +17,7 @@ pipeline {
         }
         stage('Test'){
             steps{
+                sh 'apt-get install python3'
                 sh 'python3 ./test.py'
             }
         }

@@ -23,6 +23,7 @@ pipeline {
             steps{
                 sh 'python3 -m pip install requests'
                 sh 'python3 ./test.py'
+                sh 'python3 ./commandlinetest.py'
             }
         }
         stage('Deploy'){

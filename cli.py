@@ -21,7 +21,7 @@ import json
 def tcmg476(src, dst):
     
     blah = ''
-    url = 'http://35.202.79.180/'
+    url = 'http://35.188.67.222/'
     #url = 'http://localhost:5000/'
     normal_url=url+src+'/'
 

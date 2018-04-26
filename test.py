@@ -12,7 +12,7 @@ print ("Testing API for expected results...\n")
    
 tests = {
     '/kv-record/Immalittle teepot':    (200,False),
-    '/kv-retrieve/Immalittle':            (500, None),
+    '/kv-retrieve/Immalittle':            (200, None),
     '/md5/test':                    (200, HASH_1),
     '/md5/group':           (200, HASH_2),
     '/md5':                         (200, None),

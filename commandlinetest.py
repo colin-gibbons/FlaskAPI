@@ -12,7 +12,7 @@ import subprocess
 #     # we just want the result of the command
 #     print(output[output.rfind(" "):-1])
 
-prime = subprocess.call("python cli.py is-prime 8")
+subprocess.call("python cli.py is-prime 8")
 subprocess.call("python cli.py kv-record Leeeeeeroyyy Jennnnnkinnnnns")
 subprocess.call("python cli.py kv-retrieve Leeeeeeroyyy ")
 
@@ -20,9 +20,21 @@ subprocess.call("python cli.py md5 test")
 subprocess.call("python cli.py factorial 5")
 subprocess.call("python cli.py fibonacci 8")
 
-print("hahahahaha, %r" %(prime))
 
 subprocess.call("python cli.py is-prime 1")
 subprocess.call("python cli.py slack-alert test")
+print()
+print("Output should match below:")
+print()
+print("False")
+print("False")
+print("Jennnnnkinnnnns")
+print("098f6bcd4621d373cade4e832627b4f6")
+print("120")
+print("[0, 1, 1, 2, 3, 5, 8]")
+print("False")
+print("True")
+
+
 
 #subprocess.call(["/path/to/command", "arg1", "-arg2"])

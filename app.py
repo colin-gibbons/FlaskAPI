@@ -14,7 +14,7 @@ redis_port = 6379
 tasks = [ # list of available API commands
     {
         'id':'md5',
-        'title': "MD5",
+        'title': "MD5TESTTESTSTTEST",
         'description': 'Returns an md5 hash of the passed string.',
         'done':True
     },

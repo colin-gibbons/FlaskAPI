@@ -37,8 +37,15 @@ def tcmg476(src, dst):
         payload ={ls[0]: ls[1]}
         r = requests.post(kv_url, data=payload)
         requests.post(kv_url, data=payload)
-        print(r.content)
-        print(r.status_code)
+        dic = {}
+        dic.update(r.json())
+
+        if 'output' in dic:
+            print(dic['output'])
+        elif 'error' in dic:
+            print(dic['error'])
+        #print(r.content)
+        #print(r.status_code)
         #print(payload)
 
         
@@ -62,13 +69,30 @@ def tcmg476(src, dst):
         dst =blah
         normal_url=unormal_urlrl+dst
         r = requests.get(normal_url)
-        print(r.content)
+        dic = {}
+        dic.update(r.json())
+
+        if 'output' in dic:
+            print(dic['output'])
+        elif 'error' in dic:
+            print(dic['error'])
     else:
         for i in dst:
             dst = str(i)
             normal_url=normal_url+dst
         r = requests.get(normal_url)
-        print(r.content)
+        dic = {}
+        dic.update(r.json())
+
+        if 'output' in dic:
+            print(dic['output'])
+        elif 'error' in dic:
+            print(dic['error'])
+        #print(r.json())
+        #parsed_json = json.loads(r.text)
+        #print(parsed_json(['\n']['output'])
+        # if r.json()['error'] == test_result[1] or r.json()['output'] == test_result[1]:
+        
     
     #print(url)
 

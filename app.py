@@ -78,6 +78,13 @@ def getMD5(string):
     md5Hash = hashlib.md5(str(string).encode('utf-8')).hexdigest()
     return jsonify({'input':string, 'output':md5Hash})
 
+@app.route('/echo/<string:input_str>')
+def echo(input_str):
+    return jsonify(
+        input=input_str,
+        output=' '.join([input_str]*3)
+    )
+
 @app.route('/is-prime/<int:x>', methods=['GET']) # Prime
 def getprime(x):
     if x == 1:

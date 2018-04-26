@@ -8,7 +8,7 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'docker stop flask'
-                sh 'docker swarm leave -f'
+                //sh 'docker swarm leave -f'
                 sh 'docker rmi colingibbons/flask'
                 sh 'docker build -t colingibbons/flask .'
                 sh 'docker swarm init'
